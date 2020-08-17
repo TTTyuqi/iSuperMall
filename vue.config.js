@@ -13,6 +13,7 @@ module.exports = {
         .set('@components', resolve('src/components'))
         .set('@network', resolve('src/network'))
         .set('@view', resolve('src/view'))
+        .set('@api', resolve('src/api'))
     }
 
   }

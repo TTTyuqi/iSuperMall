@@ -37,7 +37,9 @@
       },
       methods:{
         showpage(){
-          this.$router.replace(this.cruntPath)
+          this.$router.replace(this.cruntPath).catch(err =>{
+            console.log(err)
+          })
         }
       },
     }
