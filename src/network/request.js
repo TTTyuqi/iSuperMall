@@ -1,7 +1,8 @@
 import axios from 'axios'
 //可以配置多个实例
 const instance = axios.create({
-  baseURL:'http://123.207.32.32:8000/',
+  // baseURL:'http://123.207.32.32:8000/',
+  baseURL:'http://152.136.185.210:8000/api/z8',
   timeout:3000
 })
 

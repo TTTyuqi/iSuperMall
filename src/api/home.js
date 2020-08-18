@@ -9,3 +9,7 @@ import { getAction } from "./manage";
 export function getHomeMultiData() {
   return getAction('/home/multidata')
 }
+
+export const getHomeGoosList = (parms) => {
+  return getAction('/home/data',parms)
+}
