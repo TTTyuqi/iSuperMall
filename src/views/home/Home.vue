@@ -1,13 +1,15 @@
 <template>
-    <div>
+    <div id="home">
         <nav-bar class="bagcolor">
             <div slot="center">商城</div>
         </nav-bar>
-        <home-swiper :banners="banners" style="padding-top: 44px;"></home-swiper>
-        <recommend-view :recommend="recommend"></recommend-view>
-        <fartuer-view></fartuer-view>
-        <tab-control class="fix-tab-control" :titles="title" @changtabcontrol="changtabcontrol"></tab-control>
-        <goods-list :goods="goods[currentype].List"></goods-list>
+        <scroll-bar class="swapper" :pullup="true" @scrollToEnd="scrollToEnd">
+             <home-swiper :banners="banners"></home-swiper>
+              <recommend-view :recommend="recommend"></recommend-view>
+              <fartuer-view></fartuer-view>
+              <tab-control class="fix-tab-control" :titles="title" @changtabcontrol="changtabcontrol"></tab-control>
+              <goods-list :goods="goods[currentype].List"></goods-list>
+        </scroll-bar>
     </div>
 </template>
 
@@ -15,6 +17,7 @@
 import NavBar from '@components/common/navbar/NavBar'
 import TabControl from '@components/content/tabcontrol/TabControl'
 import GoodsList from '@components/content/goods/GoodsList'
+import ScrollBar from '@components/common/scroll/ScrollBar'
 
 import HomeSwiper from './childrenscomponents/HomeSwiper'
 import RecommendView from './childrenscomponents/RecommendView'
@@ -24,7 +27,7 @@ import { getHomeMultiData,getHomeGoosList } from "@/api/home";
 export default {
       name: "Home",
       components: {
-        NavBar,TabControl,GoodsList,HomeSwiper,RecommendView,FartuerView
+        NavBar,TabControl,GoodsList,ScrollBar,HomeSwiper,RecommendView,FartuerView
       },
       data(){
         return{
@@ -77,6 +80,9 @@ export default {
               this.currentype = 'sell'
               break
           }
+        },
+        scrollToEnd(){
+          console.log("我已到底")
         }
       }
 
@@ -84,6 +90,12 @@ export default {
 </script>
 
 <style scoped>
+    #home{
+      padding-top: 44px;
+      height: 100vh;
+      /* 第二中方式 */
+      position: relative;
+    }
     .bagcolor{
         background-color: silver;
         color: ghostwhite;
@@ -93,8 +105,21 @@ export default {
         right: 0;
         z-index: 2;
     }
-  .fix-tab-control{
-    position: sticky;
-    top: 44px;
-  }
+    .fix-tab-control{
+      position: sticky;
+      top: 44px;
+    }
+    /* scroll 设置滚动的试图的第二种方式 */
+    /* .swapper{
+      height: calc(100vh - 93px);
+      overflow: hidden;
+    } */
+    .swapper{
+      overflow: hidden;
+      position: absolute;
+      top: 44px;
+      bottom: 49px;
+      left: 0;
+      right: 0;
+    }
 </style>
