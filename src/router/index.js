@@ -11,19 +11,24 @@ const routes = [
   },
   {
     path:'/home',
-    component:() => import('../views/home/Home')
+    component:() => import('@/views/home/Home')
   },
   {
     path:'/category',
-    component:() => import('../views/category/Category')
+    component:() => import('@/views/category/Category')
   },
   {
     path:'/shopcar',
-    component:() => import('../views/shopcar/Shopcar')
+    component:() => import('@/views/shopcar/Shopcar')
   },
   {
     path:'/profile',
-    component:() => import('../views/profile/Profile')
+    component:() => import('@/views/profile/Profile')
+  },
+  {
+    path:'/selldetails/:id',
+    component:() => import('@/views/selldetails/SellDetails'),
+    props:true
   }
 ]
 const router = new VueRouter({

@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-list-item" >
+  <router-link tag="div" :to="`/selldetails/${goodsitem.iid}`" class="goods-list-item">
     <img :src="goodsitem.show.img"/>
     <div class="item-info">
       <P>{{goodsitem.title}}</P>
@@ -9,7 +9,7 @@
         <div class="cfav">{{goodsitem.cfav}}</div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -24,7 +24,13 @@
             }
 
           }
-        }
+        },
+        // methods:{
+        //   //1.第一种跳转路由的方式
+        //   sellClick(){
+        //     this.$router.push('/selldetails/'+this.goodsitem.iid)
+        //   }
+        // }
     }
 </script>
 

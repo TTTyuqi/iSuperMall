@@ -3,13 +3,24 @@
         <nav-bar class="bagcolor">
             <div slot="center">商城</div>
         </nav-bar>
-        <scroll-bar class="swapper" :pullup="true" @scrollToEnd="scrollToEnd">
-             <home-swiper :banners="banners"></home-swiper>
+        <tab-control class="fix-tab-control" :titles="title" @changtabcontrol="changtabcontrol" v-show="fixdtabcontrol" ref="tabcontroloffsetop1"></tab-control>
+        <scroll-bar
+          ref="scroller"
+          class="swapper"
+          :pullup="true"
+          :listenScroll="true"
+          :probe-type="3"
+          @scrollToEnd="scrollToEnd"
+          @scrolling="scrolling"
+          >
+             <home-swiper :banners="banners" @imgLoad="imgLoad"></home-swiper>
               <recommend-view :recommend="recommend"></recommend-view>
               <fartuer-view></fartuer-view>
-              <tab-control class="fix-tab-control" :titles="title" @changtabcontrol="changtabcontrol"></tab-control>
+              <tab-control :titles="title" @changtabcontrol="changtabcontrol" ref="tabcontroloffsetop"></tab-control>
               <goods-list :goods="goods[currentype].List"></goods-list>
         </scroll-bar>
+        <!--@click.native ==> native属性可以给组件添加原生的点击事件-->
+        <back-top v-show="viewbacktop" @click.native="backtop"></back-top>
     </div>
 </template>
 
@@ -18,16 +29,18 @@ import NavBar from '@components/common/navbar/NavBar'
 import TabControl from '@components/content/tabcontrol/TabControl'
 import GoodsList from '@components/content/goods/GoodsList'
 import ScrollBar from '@components/common/scroll/ScrollBar'
+import BackTop from '@components/content/backtop/BackTop'
 
 import HomeSwiper from './childrenscomponents/HomeSwiper'
 import RecommendView from './childrenscomponents/RecommendView'
 import FartuerView from './childrenscomponents/FartuerView'
+
 import { getHomeMultiData,getHomeGoosList } from "@/api/home";
 
 export default {
       name: "Home",
       components: {
-        NavBar,TabControl,GoodsList,ScrollBar,HomeSwiper,RecommendView,FartuerView
+        NavBar,TabControl,GoodsList,ScrollBar,BackTop,HomeSwiper,RecommendView,FartuerView
       },
       data(){
         return{
@@ -39,7 +52,9 @@ export default {
             new:{page:0,List:[]},
             sell:{page:0,List:[]}
           },
-          currentype:'pop'
+          currentype:'pop',
+          viewbacktop:false,
+          fixdtabcontrol:false
         }
       },
       created(){
@@ -50,7 +65,16 @@ export default {
         this.homeGoods('pop')
         this.homeGoods('new')
         this.homeGoods('sell')
-
+      },
+      //只有被路由配置的组件才能使用这个函数
+      activated(){
+        this.$refs.scroller._scrollBackTo(0,this.saveY,0)
+        this.$refs.scroller._refresh()
+      },
+      deactivated(){
+        //路由跳转离开时记录一下scroll的y轴的坐标
+        this.saveY = this.$refs.scroller. _getScrollY()
+        // console.log("===",this.saveY)
       },
       methods:{
         homemultis(){
@@ -67,6 +91,7 @@ export default {
             this.goods[type].page=res.data.page
             // console.log('====',res.data)
           })
+
         },
         changtabcontrol(index){
           switch (index) {
@@ -80,9 +105,31 @@ export default {
               this.currentype = 'sell'
               break
           }
+          this.$refs.tabcontroloffsetop.currentIndex = index
+          this.$refs.tabcontroloffsetop1.currentIndex = index
+          this.$refs.scroller._refresh()
         },
         scrollToEnd(){
-          console.log("我已到底")
+          this.homeGoods(this.currentype)
+          this.$refs.scroller._refresh()
+        },
+        //实时监听滚动的位置
+        scrolling(pos){
+          if(pos.y < -1000){
+            this.viewbacktop = true
+          }else {
+            this.viewbacktop = false
+          }
+          this.fixdtabcontrol = pos.y <=  -this.tabcontrolSeTop
+
+        },
+        backtop(){
+          this.$refs.scroller._scrollBackTo(0,0)
+        },
+        imgLoad(){
+          setTimeout(() => {
+            this.tabcontrolSeTop = this.$refs.tabcontroloffsetop.$el.offsetTop
+          },20)
         }
       }
 
@@ -106,8 +153,14 @@ export default {
         z-index: 2;
     }
     .fix-tab-control{
-      position: sticky;
-      top: 44px;
+      /*css最新的特性 可能有些浏览器不识别==》可实现吸顶效果*/
+      /*position: sticky;*/
+      /*top: 44px;*/
+      position: fixed;
+      top:44px;
+      left: 0;
+      right: 0;
+      z-index: 2;
     }
     /* scroll 设置滚动的试图的第二种方式 */
     /* .swapper{

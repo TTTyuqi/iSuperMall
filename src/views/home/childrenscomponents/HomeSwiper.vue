@@ -1,7 +1,7 @@
 <template>
   <Swiper>
     <swiper-items v-for="(item,index) in banners" :key="index">
-      <a :href="item.link"><img :src="item.image"/></a>
+      <a :href="item.link"><img :src="item.image" @load="imgeloadonce"/></a>
     </swiper-items>
   </Swiper>
 </template>
@@ -19,6 +19,19 @@
             require:true,
             default:() =>{
               return []
+            }
+          }
+        },
+        data(){
+          return {
+            isLoad:true
+          }
+        },
+        methods:{
+          imgeloadonce(){
+            if (this.isLoad){
+              this.$emit('imgLoad')
+              this.isLoad=false
             }
           }
         }

@@ -1,8 +1,8 @@
 <template>
     <div class="nar-bar">
-        <div class="right"><slot name="right"></slot></div>
-        <div class="center"><slot name="center"></slot></div>
         <div class="left"><slot name="left"></slot></div>
+        <div class="center"><slot name="center"></slot></div>
+        <div class="right"><slot name="right"></slot></div>
     </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
 
     }
      .left{
-         width: 60px;
+       width: 60px;
        
      }
      .right{

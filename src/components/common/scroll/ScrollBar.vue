@@ -4,7 +4,6 @@
             <slot></slot>
         </div>
     </div>
-    
 </template>
 
 <script>
@@ -23,7 +22,7 @@ export default {
          probeType:{
              type:Number,
              require:false,
-             default:3
+             default:1
          } ,
          /**
           * 是否启动在scroll包裹中Dom的点击事件
@@ -61,7 +60,7 @@ export default {
           */
          beforeScroll: {
             type: Boolean,
-            default: false
+            default: true
          },
     },
     mounted(){
@@ -81,12 +80,14 @@ export default {
              //是否监听滚动事件
              if(this.listenScroll){
                 this.scroll.on('scroll',(position) => {
-                    console.log("====",position)
+                    // console.log("====",position)
+                    this.$emit('scrolling',position)
                 })
              } 
              //是否启动下拉加载更多
              if(this.pullup){
                  this.scroll.on('scrollEnd',(position) => {
+                   // console.log("====",position)
                      // 滚动到底部
                      if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
                         this.$emit('scrollToEnd')
@@ -105,11 +106,27 @@ export default {
 
              // 是否派发列表滚动开始的事件
              if (this.beforeScroll) {
-                 this.scroll.on('beforeScrollStart', () => {
-                 this.$emit('beforeScroll')
-             })
-        }  
+                 this.scroll.on('beforeScrollStart', (res) => {
+                   // console.log("====",res)
+                  this._refresh()
+                 // this.$emit('beforeScroll')
+                })
+              }
         },
+        //回到顶部的方法
+        _scrollBackTo(x,y,time=500){
+          this.scroll && this.scroll.scrollTo(x,y,time)
+        },
+        //刷新scroll重新计算
+        _refresh() {
+          // 代理better-scroll的refresh方法
+          this.scroll && this.scroll.refresh()
+          // console.log("===")
+        },
+        //获取y的坐标点
+        _getScrollY(){
+          return this.scroll?this.scroll.y:0
+        }
        
 
     }
