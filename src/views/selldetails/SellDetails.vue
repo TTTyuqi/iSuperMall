@@ -13,6 +13,7 @@
         <detail-shop :shopinfo="shopinfo"/>
         <detail-goods-info :detailgoodsinfo="baseinfo"/>
         <detail-params :paramesinfo="paramsinfo"/>
+        <detail-goods-recommed :goodsreate="goodsreates"/>
       </scroll-bar>
     </div>
 </template>
@@ -24,6 +25,7 @@
   import DetailShop from './sellschilrendcomponents/DetailShop'
   import DetailGoodsInfo from './sellschilrendcomponents/DetailGoodsInfo'
   import DetailParams from './sellschilrendcomponents/DetailParams'
+  import DetailGoodsRecommed from './sellschilrendcomponents/DetailGoodsRecommed'
 
   import ScrollBar from '@components/common/scroll/ScrollBar'
 
@@ -41,6 +43,7 @@
           DetailShop,
           DetailGoodsInfo,
           DetailParams,
+          DetailGoodsRecommed,
 
           ScrollBar
         },
@@ -50,7 +53,8 @@
             goodsinfo:{},
             shopinfo:{},
             baseinfo:{},
-            paramsinfo:{}
+            paramsinfo:{},
+            goodsreates:[]
           }
         },
         created(){
@@ -66,6 +70,10 @@
               this.shopinfo = new shop(data.shopInfo)
               this.baseinfo = data.detailInfo
               this.paramsinfo = new GoodsParams(data.itemParams.info,data.itemParams.rule)
+              if(data.rate.cRate > 0){
+                this.goodsreates = data.rate.list
+
+              }
               console.log("goods",data)
             })
           },
