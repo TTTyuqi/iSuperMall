@@ -1,6 +1,6 @@
 <template>
-  <router-link tag="div" :to="`/selldetails/${goodsitem.iid}`" class="goods-list-item">
-    <img :src="goodsitem.show.img"/>
+  <router-link tag="div" :to="diffrouter" class="goods-list-item">
+    <img :src="showdiffimg" @load="imgload"/>
     <div class="item-info">
       <P>{{goodsitem.title}}</P>
       <div style="display: flex;justify-content: center;align-items: center">
@@ -25,12 +25,27 @@
 
           }
         },
-        // methods:{
-        //   //1.第一种跳转路由的方式
-        //   sellClick(){
-        //     this.$router.push('/selldetails/'+this.goodsitem.iid)
-        //   }
-        // }
+        computed:{
+            showdiffimg(){
+              return  this.goodsitem.image || this.goodsitem.show.img
+            },
+            diffrouter(){
+              return this.goodsitem.iid ?`/selldetails/${this.goodsitem.iid}`:`/selldetails/${this.goodsitem.item_id}`
+            }
+
+
+        },
+        methods:{
+          //1.第一种跳转路由的方式
+          // sellClick(){
+          //   this.$router.push('/selldetails/'+this.goodsitem.iid)
+          // }
+
+          //图片加载完成的反射$emit机制
+          imgload(){
+            this.$emit('imgload')
+          }
+        }
     }
 </script>
 

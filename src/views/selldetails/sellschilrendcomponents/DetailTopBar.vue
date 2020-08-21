@@ -23,6 +23,7 @@
         methods:{
           itemclick(index){
             this.currentitleindex = index
+            this.$emit("currenindex",index)
           },
           backClick(){
             this.$router.back()

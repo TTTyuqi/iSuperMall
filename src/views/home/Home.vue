@@ -29,18 +29,19 @@ import NavBar from '@components/common/navbar/NavBar'
 import TabControl from '@components/content/tabcontrol/TabControl'
 import GoodsList from '@components/content/goods/GoodsList'
 import ScrollBar from '@components/common/scroll/ScrollBar'
-import BackTop from '@components/content/backtop/BackTop'
 
 import HomeSwiper from './childrenscomponents/HomeSwiper'
 import RecommendView from './childrenscomponents/RecommendView'
 import FartuerView from './childrenscomponents/FartuerView'
 
 import { getHomeMultiData,getHomeGoosList } from "@/api/home";
+import {iMallMixin} from '@common/mallMixin'
 
 export default {
       name: "Home",
+      mixins:[iMallMixin],
       components: {
-        NavBar,TabControl,GoodsList,ScrollBar,BackTop,HomeSwiper,RecommendView,FartuerView
+        NavBar,TabControl,GoodsList,ScrollBar,HomeSwiper,RecommendView,FartuerView
       },
       data(){
         return{
@@ -53,7 +54,6 @@ export default {
             sell:{page:0,List:[]}
           },
           currentype:'pop',
-          viewbacktop:false,
           fixdtabcontrol:false
         }
       },
@@ -66,10 +66,10 @@ export default {
         this.homeGoods('new')
         this.homeGoods('sell')
       },
-      //只有被路由配置的组件才能使用这个函数
+      //只有被keep-alive保存的路由配置的组件才能使用这个函数
       activated(){
-        this.$refs.scroller._scrollBackTo(0,this.saveY,0)
         this.$refs.scroller._refresh()
+        this.$refs.scroller._scrollBackTo(0,this.saveY,0)
       },
       deactivated(){
         //路由跳转离开时记录一下scroll的y轴的坐标
@@ -107,7 +107,10 @@ export default {
           }
           this.$refs.tabcontroloffsetop.currentIndex = index
           this.$refs.tabcontroloffsetop1.currentIndex = index
-          this.$refs.scroller._refresh()
+          setTimeout(() => {
+            this.$refs.scroller._refresh()
+          },100)
+
         },
         scrollToEnd(){
           this.homeGoods(this.currentype)
@@ -115,16 +118,9 @@ export default {
         },
         //实时监听滚动的位置
         scrolling(pos){
-          if(pos.y < -1000){
-            this.viewbacktop = true
-          }else {
-            this.viewbacktop = false
-          }
+          this.viewbacktop = pos.y < -1000? true:false
           this.fixdtabcontrol = pos.y <=  -this.tabcontrolSeTop
 
-        },
-        backtop(){
-          this.$refs.scroller._scrollBackTo(0,0)
         },
         imgLoad(){
           setTimeout(() => {

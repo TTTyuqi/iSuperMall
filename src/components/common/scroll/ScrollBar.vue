@@ -114,7 +114,7 @@ export default {
               }
         },
         //回到顶部的方法
-        _scrollBackTo(x,y,time=500){
+        _scrollBackTo(x,y,time=200){
           this.scroll && this.scroll.scrollTo(x,y,time)
         },
         //刷新scroll重新计算

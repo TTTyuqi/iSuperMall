@@ -1,3 +1,9 @@
+/**
+ * @author 田宇齐
+ * @date 2020/8/21 8:50
+ * @FilePath: \vue-cli3-project\src\utils\utils.js
+ * @Description:时间戳格式化方法
+ */
 //封装一个日期格式化函数
 export const formatData = (date,fmtd) => {
     //1.首先判断fmtd参数传过来的关于year（年份）的日期格式：例如 ==》 yyyy｜yyy｜yy

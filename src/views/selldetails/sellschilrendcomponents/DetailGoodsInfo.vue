@@ -13,7 +13,7 @@
       <div class="info-key">{{detailgoodsinfo.detailImage[0].key}}</div>
     </div>
     <div class="baseinfo-img">
-      <img v-for="(item,index) in detailgoodsinfo.detailImage[0].list" :src="item" :key="index"/>
+      <img v-for="(item,index) in detailgoodsinfo.detailImage[0].list" :src="item" :key="index" @load="imgeload"/>
     </div>
   </div>
 </template>
@@ -28,6 +28,19 @@
             default:() => {}
           }
         },
+        data(){
+          return {
+            imgcount:0
+          }
+        },
+        methods:{
+          imgeload(){
+            this.imgcount++
+            if (this.detailgoodsinfo.detailImage[0].list.length == this.imgcount) {
+              this.$emit('imgLoad')
+            }
+          }
+        }
     }
 </script>
 

@@ -11,7 +11,8 @@ export function getSellDetails(param) {
   return getAction('/detail',param)
 }
 
-// export const getReateDatail = () => getAction('')
+//获取商品的推荐数据
+export const getReateDatail = () => getAction('recommend')
 
 //封装一个商品对象信息类
 export class goodInfo {

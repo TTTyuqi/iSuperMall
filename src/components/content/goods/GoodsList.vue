@@ -1,6 +1,6 @@
 <template>
     <div class="goods-list">
-      <goods-list-item v-for="(item,index) in goods" :key="index" :goodsitem="item"></goods-list-item>
+      <goods-list-item v-for="(item,index) in goods" :key="index" :goodsitem="item" @imgload="imgload"></goods-list-item>
     </div>
 </template>
 
@@ -19,6 +19,19 @@
               return []
             }
           }
+        },
+        data(){
+          return{
+            imgcount:0
+          }
+        },
+        methods:{
+          imgload(){
+            this.imgcount++
+            if (this.imgcount == this.goods.length) {
+              this.$emit("finishloadimg")
+            }
+          }
         }
     }
 </script>
@@ -28,8 +41,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-
-    padding: 0 5px;
+    padding: 5px 5px;
+    /*box-shadow: 0 0.04rem 0.4rem gray;*/
   }
 
 
