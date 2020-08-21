@@ -16,7 +16,7 @@
         <detail-goods-recommed :goodsreate="goodsreates" ref="recommend"/>
         <goods-list :goods="recommends" ref="goodreod" @finishloadimg="finishloadimg"/>
       </scroll-bar>
-      <detail-bettom-bar/>
+      <detail-bettom-bar @addtocart="addToCart"/>
       <!--@click.native ==> native属性可以给组件添加原生的点击事件-->
       <back-top v-show="viewbacktop" @click.native="backtop"></back-top>
     </div>
@@ -96,7 +96,7 @@
               if(data.rate.cRate > 0){
                 this.goodsreates = data.rate.list
               }
-              // console.log("goods",data)
+              console.log("goods",data)
             })
           },
           //获取推荐商品数据
@@ -167,6 +167,20 @@
             setTimeout(() => {
               this.goodreodsetTop = this.$refs.goodreod.$el.offsetTop
             },20)
+          },
+          //将商品添加入对应的购物车
+          addToCart(){
+            const addGood={
+              img:this.detailbanimg[0],
+              title:this.goodsinfo.name,
+              desc:this.goodsinfo.desc,
+              realPrice:this.goodsinfo.realprice,
+              iid:this.id
+            }
+            this.$store.dispatch('addGoodToCart', addGood).then((res) => {
+                console.log("====",res)
+            })
+          
           }
         }
     }
