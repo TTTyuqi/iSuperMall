@@ -12,7 +12,7 @@
       <i class="icon"></i>
       <span>收藏</span>
     </div>
-    <div class="cart" >
+    <div class="cart" @click="addgoodstocart">
       加入购物车
     </div>
     <div class="buy">
@@ -24,7 +24,12 @@
 
 <script>
     export default {
-        name: "DetailBettomBar"
+        name: "DetailBettomBar",
+        methods:{
+          addgoodstocart(){
+            this.$emit("addtocart")
+          }
+        }
     }
 </script>
 
@@ -32,7 +37,6 @@
     .bettom_bar{
       position: relative;
       height: 49px;
-      bottom: 49px;
       background-color: white;
       align-items: center;
       display: flex;

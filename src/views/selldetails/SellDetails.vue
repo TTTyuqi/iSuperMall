@@ -16,7 +16,7 @@
         <detail-goods-recommed :goodsreate="goodsreates" ref="recommend"/>
         <goods-list :goods="recommends" ref="goodreod" @finishloadimg="finishloadimg"/>
       </scroll-bar>
-      <detail-bettom-bar/>
+      <detail-bettom-bar @addtocart="addtocart"/>
       <!--@click.native ==> native属性可以给组件添加原生的点击事件-->
       <back-top v-show="viewbacktop" @click.native="backtop"></back-top>
     </div>
@@ -167,6 +167,10 @@
             setTimeout(() => {
               this.goodreodsetTop = this.$refs.goodreod.$el.offsetTop
             },20)
+          },
+          //加入购物车
+          addtocart(){
+
           }
         }
     }
@@ -184,7 +188,7 @@
     .sellswapper{
       overflow: hidden;
       position: relative;
-      height: calc(100vh - 44px);
+      height: calc(100vh - 93px);
       bottom: 0px;
       left: 0;
       right: 0;
