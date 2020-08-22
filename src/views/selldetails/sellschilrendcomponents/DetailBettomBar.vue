@@ -35,9 +35,10 @@
 
 <style scoped>
     .bettom_bar{
-      position: relative;
+      position: fixed;
+      width: 100%;
       height: 49px;
-      bottom: 49px;
+      bottom: 0px;
       background-color: white;
       align-items: center;
       display: flex;

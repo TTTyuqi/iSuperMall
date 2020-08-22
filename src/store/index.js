@@ -6,7 +6,7 @@ import Vuex from 'vuex'
 
 import mutations from './mutations'
 import actions from './actions'
-
+import getters from './getters'
 //挂载vuex
 Vue.use(Vuex)
 
@@ -24,9 +24,7 @@ const store = new Vuex.Store({
     //异步操作
     actions,
     //加工state对象中的属性
-    getters:{
-
-    },
+    getters,
     //模块化状态管理
     module:{
 

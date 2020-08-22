@@ -107,7 +107,7 @@ export default {
              // 是否派发列表滚动开始的事件
              if (this.beforeScroll) {
                  this.scroll.on('beforeScrollStart', (res) => {
-                   // console.log("====",res)
+                //    console.log("====",res)
                   this._refresh()
                  // this.$emit('beforeScroll')
                 })
