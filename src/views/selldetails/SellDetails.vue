@@ -16,11 +16,7 @@
         <detail-goods-recommed :goodsreate="goodsreates" ref="recommend"/>
         <goods-list :goods="recommends" ref="goodreod" @finishloadimg="finishloadimg"/>
       </scroll-bar>
-<<<<<<< HEAD
-      <detail-bettom-bar @addtocart="addtocart"/>
-=======
       <detail-bettom-bar @addtocart="addToCart"/>
->>>>>>> a7985578633c10329bda4873ddb2e6b3a9bc67d1
       <!--@click.native ==> native属性可以给组件添加原生的点击事件-->
       <back-top v-show="viewbacktop" @click.native="backtop"></back-top>
     </div>
