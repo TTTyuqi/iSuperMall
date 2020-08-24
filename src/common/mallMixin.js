@@ -6,6 +6,7 @@
  */
 import BackTop from '@components/content/backtop/BackTop'
 
+
 export const iMallMixin={
 
   components:{

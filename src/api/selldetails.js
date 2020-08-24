@@ -19,7 +19,9 @@ export class goodInfo {
   constructor(itemInfo, columns,services) {
     // this关键字则代表实例对象
     this.name = itemInfo.title
+    this.desc = itemInfo.desc
     this.price = itemInfo.price
+    this.realprice = itemInfo.lowNowPrice
     this.oldPrice = itemInfo.oldPrice
     this.discountDesc = itemInfo.discountDesc
     this.discountBgColor = itemInfo.discountBgColor
