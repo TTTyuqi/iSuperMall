@@ -183,7 +183,7 @@
               console.log("toastEl",this.$toast)
               this.$toast.showMessage(res,1000)
             })
-          
+
           }
         }
     }
@@ -201,7 +201,7 @@
     .sellswapper{
       overflow: hidden;
       position: relative;
-      height: calc(100vh - 44px);
+      height: calc(100vh - 93px);
       bottom: 0px;
       left: 0;
       right: 0;
