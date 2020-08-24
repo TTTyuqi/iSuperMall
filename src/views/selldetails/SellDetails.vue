@@ -34,6 +34,7 @@
 
   import ScrollBar from '@components/common/scroll/ScrollBar'
   import GoodsList from '@components/content/goods/GoodsList'
+  import Toast from '@components/common/toast/Toast'
 
   import {getSellDetails,getReateDatail,goodInfo,shop,GoodsParams} from "@/api/selldetails";
   import {iMallMixin} from '@common/mallMixin'
@@ -55,7 +56,8 @@
           DetailBettomBar,
 
           ScrollBar,
-          GoodsList
+          GoodsList,
+          Toast
         },
         data(){
           return{
@@ -178,7 +180,8 @@
               iid:this.id
             }
             this.$store.dispatch('addGoodToCart', addGood).then((res) => {
-                console.log("====",res)
+              console.log("toastEl",this.$toast)
+              this.$toast.showMessage(res,1000)
             })
           
           }

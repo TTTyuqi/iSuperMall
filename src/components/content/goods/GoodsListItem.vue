@@ -1,6 +1,6 @@
 <template>
   <router-link tag="div" :to="diffrouter" class="goods-list-item">
-    <img :src="showdiffimg" @load="imgload"/>
+    <img v-lazy="showdiffimg" alt="TTyiqi" @load="imgload"/>
     <div class="item-info">
       <P>{{goodsitem.title}}</P>
       <div style="display: flex;justify-content: center;align-items: center">

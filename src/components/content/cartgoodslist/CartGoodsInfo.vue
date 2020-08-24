@@ -4,7 +4,7 @@
             <check-buttom @ischecked='ischecked' :isactive='isallchosed'/>全选
             <div class="total">合计:{{totalMoney}}</div>
         </div>
-        <div class="tomoney">去计算({{tobuygoods.length}})</div>
+        <div class="tomoney" @click="giveMoney">去计算({{tobuygoods.length}})</div>
     </div>
 </template>
 
@@ -39,6 +39,13 @@ export default {
         ischecked(flage){
             this.$emit('allcheosed',flage)
             // console.log("------",flage)
+        },
+        giveMoney(){
+            if(this.tobuygoods.length > 0){
+                this.$toast.showMessage("购买成功",2000)
+            }else{
+                this.$toast.showMessage("请添加您喜欢的商品",2000)
+            }
         }
     }
 }
