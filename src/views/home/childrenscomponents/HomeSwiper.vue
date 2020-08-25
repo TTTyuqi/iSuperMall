@@ -24,14 +24,14 @@
         },
         data(){
           return {
-            isLoad:true
+            imagecount:0
           }
         },
         methods:{
           imgeloadonce(){
-            if (this.isLoad){
+            this.imagecount++
+            if (this.imagecount == this.banners.length){
               this.$emit('imgLoad')
-              this.isLoad=false
             }
           }
         }

@@ -53,11 +53,11 @@
       // watch：watch是去监听一个值的变化，然后执行相对应的函数。
       // computed：computed是计算属性，也就是依赖其它的属性计算所得出最后的值
       mounted(){
-        this.$nextTick(() => {
+        setTimeout(() => {
           this.handleDom()
           // 2.开启定时器
           this.startTimer();
-        })
+        },200)
 
       },
       methods:{
