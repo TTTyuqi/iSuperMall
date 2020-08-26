@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path:'',
-    redirect:'/home'
+    redirect:'/login'
   },
   {
     path:'/home',
@@ -29,6 +29,10 @@ const routes = [
     path:'/selldetails/:id',
     component:() => import('@/views/selldetails/SellDetails'),
     props:true
+  },
+  {
+    path:'/login',
+    component:() => import('@/views/user/Login')
   }
 ]
 const router = new VueRouter({

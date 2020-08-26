@@ -3,7 +3,7 @@
     <keep-alive exclude="SellDetails">
       <router-view></router-view>
     </keep-alive>
-    <mian-tab-bar></mian-tab-bar>
+    <mian-tab-bar v-show="$route.path.indexOf('login') == -1"></mian-tab-bar>
   </div>
 </template>
 

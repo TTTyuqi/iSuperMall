@@ -5,6 +5,12 @@ const instance = axios.create({
   baseURL:'http://152.136.185.210:8000/api/z8',
   timeout:3000
 })
+//配置第二实例 访问本地的node后台接口
+const instance2 = axios.create({
+  // baseURL:'http://123.207.32.32:8000/',
+  baseURL: 'http://localhost:3000/',
+  timeout:3000
+})
 
 // 添加请求拦截器
 instance.interceptors.request.use((config) => {
@@ -24,4 +30,4 @@ instance.interceptors.response.use((response) => {
   return Promise.reject(error);
 });
 
-export { instance }
+export { instance ,instance2}

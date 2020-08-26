@@ -7,6 +7,7 @@ import Vuex from 'vuex'
 import mutations from './mutations'
 import actions from './actions'
 import getters from './getters'
+import User from './modules/user'
 //挂载vuex
 Vue.use(Vuex)
 
@@ -26,8 +27,8 @@ const store = new Vuex.Store({
     //加工state对象中的属性
     getters,
     //模块化状态管理
-    module:{
-
+    modules:{
+      User
     }
 })
 
